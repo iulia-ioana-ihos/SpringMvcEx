@@ -24,7 +24,7 @@ public class RegistrationController {
     @RequestMapping(value = "/register", method = RequestMethod.POST)
     public String addRegistration(@ModelAttribute("user") UserDTO user) {
         userService.saveUser(user);
-        return "redirect:register";
+        return "redirect:/";
     }
 
     @Autowired
