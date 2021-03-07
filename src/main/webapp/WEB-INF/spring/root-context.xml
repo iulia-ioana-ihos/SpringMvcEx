@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+	
+	<!-- Root Context: defines shared resources visible to all other web components -->
+
+	<bean name="dtoConverter" class="com.evozon.converter.user.UserToUserDtoConverter"/>
+	<bean name="userConverter" class="com.evozon.converter.user.UserDtoToUserConverter"/>
+	<bean name="userService" class="com.evozon.service.impl.UserServiceImpl">
+		<property name="dtoToEntity" ref="userConverter"/>
+		<property name="entityToDto" ref="dtoConverter"/>
+		<property name="userRepository" ref="userRepository"/>
+	</bean>
+	<bean name="userRepository" class="com.evozon.repository.impl.UserRepositoryImpl"/>
+
+	<bean name="registrationController" class="com.evozon.mvc.controller.RegistrationController">
+		<property name="userService" ref="userService"/>
+	</bean>
+	<bean name="userController" class="com.evozon.mvc.controller.UserController">
+		<property name="userService" ref="userService"/>
+	</bean>
+
+</beans>
